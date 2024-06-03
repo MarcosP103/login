@@ -1,12 +1,13 @@
 import express from 'express'
-import path from 'path'
-import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import cookieParser from 'cookie-parser'
+import path from 'path'
 import FileStore from 'session-file-store'
 import bodyParser from 'body-parser'
 import { engine } from 'express-handlebars'
 import MongoStore from 'connect-mongo'
 import sessionsRouter from './routes/api/sessions.js'
+import prductsRouter from './routes/api/products.js'
 import viewsRouter from './routes/views.js'
 import connectDB from './config/database.js'
 import dotenv from 'dotenv'
@@ -49,6 +50,7 @@ app.use(bodyParser.json());
 
 //Rutas
 app.use('/api/sessions', sessionsRouter);
+app.use('/api/products', prductsRouter)
 app.use('/', viewsRouter);
 
 app.get('/', (req, res) => {
