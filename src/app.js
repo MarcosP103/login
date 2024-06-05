@@ -7,10 +7,13 @@ import bodyParser from 'body-parser'
 import { engine } from 'express-handlebars'
 import MongoStore from 'connect-mongo'
 import sessionsRouter from './routes/api/sessions.js'
-import prductsRouter from './routes/api/products.js'
+import productsRouter from './routes/api/products.js'
 import viewsRouter from './routes/views.js'
 import connectDB from './config/database.js'
 import dotenv from 'dotenv'
+import passport from 'passport'
+import initializePassport from './config/passport.config.js'
+
 dotenv.config()
 
 connectDB()
@@ -33,6 +36,10 @@ app.use(session({
     cookie: { maxAge: 180 * 60 * 1000 },
 }))
 
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -50,7 +57,7 @@ app.use(bodyParser.json());
 
 //Rutas
 app.use('/api/sessions', sessionsRouter);
-app.use('/api/products', prductsRouter)
+app.use('/api/products', productsRouter)
 app.use('/', viewsRouter);
 
 app.get('/', (req, res) => {

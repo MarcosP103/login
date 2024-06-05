@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import Product from '../../models/products.js';
+import { isAuthenticated } from '../../middleware/auth.js'
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
     console.log('Session', req.session)
     try {
         const products = await Product.find(); 

@@ -3,16 +3,16 @@ import { isAdmin, isAuthenticated, isNotAuthenticated } from '../middleware/auth
 
 const router = Router();
 
-router.get('/api/products', isAuthenticated, (req, res) => {
-    const products = [
-        { id: 1, title: 'Producto 1', price: 100 },
-        { id: 2, title: 'Producto 2', price: 200 },
-    ];
+// router.get('/api/products', isAuthenticated, (req, res) => {
+//     const products = [
+//         { id: 1, title: 'Producto 1', price: 100 },
+//         { id: 2, title: 'Producto 2', price: 200 },
+//     ];
 
-    const userName = req.session.user.userName
+//     const userName = req.session.user.userName
 
-    res.render('products', { products, userName });
-});
+//     res.render('products', { products, userName });
+// });
 
 router.get('/admin', isAdmin, (req, res) => {
     res.send('Pagina de administrador: solo accesible para administradores')
